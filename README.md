@@ -4,6 +4,25 @@ Element
 Element (formerly known as Vector and Riot) is a Matrix web client built using the [Matrix
 React SDK](https://github.com/matrix-org/matrix-react-sdk).
 
+Build with more recent translations using podman/docker
+=======================================================
+
+This will make Element available in your browser at `http://localhost:8080`, currently with experimental space support enabled by default.
+
+```bash
+podman build . --no-cache -t element-i18n \
+    --build-arg USE_CUSTOM_SDKS=true \
+    --build-arg REACT_SDK_REPO="https://github.com/libexus/matrix-react-sdk-i18n.git" `# <- Repo with recent translations`\
+    --build-arg REACT_SDK_BRANCH="develop" \
+    --build-arg JS_SDK_REPO="https://github.com/matrix-org/matrix-js-sdk.git" \
+    --build-arg JS_SDK_BRANCH="develop"
+```
+To start Element, run `podman run -d --name element -p 8080:80 element-i18n`(do this only once after building). If you want to update Element, build it again and delete the old container using `podman rm element` before executing the `podman run` command.
+
+You now can stop/start Element using `podman stop/start element`.
+
+Note: This also works with docker, just replace `podman` with `docker`.
+
 Supported Environments
 ======================
 
