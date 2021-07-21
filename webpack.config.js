@@ -1,9 +1,10 @@
+/* eslint-disable quote-props */
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const webpack = require("webpack");
 const HtmlWebpackInjectPreload = require('@principalstudio/html-webpack-inject-preload');
 
 let ogImageUrl = process.env.RIOT_OG_IMAGE_URL;
@@ -54,8 +55,7 @@ module.exports = (env, argv) => {
 
         entry: {
             "bundle": "./src/vector/index.ts",
-            "indexeddb-worker": "./src/vector/indexeddb-worker.js",
-            "mobileguide": "./src/vector/mobile_guide/index.js",
+            "mobileguide": "./src/vector/mobile_guide/index.ts",
             "jitsi": "./src/vector/jitsi/index.ts",
             "usercontent": "./node_modules/matrix-react-sdk/src/usercontent/index.js",
             "recorder-worklet": "./node_modules/matrix-react-sdk/src/voice/RecorderWorklet.ts",
@@ -143,13 +143,17 @@ module.exports = (env, argv) => {
                 // overflows (https://github.com/webpack/webpack/issues/1721), and
                 // there is no need for webpack to parse them - they can just be
                 // included as-is.
-                /highlight\.js[\\\/]lib[\\\/]languages/,
+                /highlight\.js[\\/]lib[\\/]languages/,
 
                 // olm takes ages for webpack to process, and it's already heavily
                 // optimised, so there is little to gain by us uglifying it.
-                /olm[\\\/](javascript[\\\/])?olm\.js$/,
+                /olm[\\/](javascript[\\/])?olm\.js$/,
             ],
             rules: [
+                {
+                    test: /\.worker\.ts$/,
+                    loader: "worker-loader",
+                },
                 {
                     test: /\.(ts|js)x?$/,
                     include: (f) => {
@@ -250,7 +254,6 @@ module.exports = (env, argv) => {
                                     require("postcss-easings")(),
                                     require("postcss-strip-inline-comments")(),
                                     require("postcss-hexrgba")(),
-                                    require("postcss-calc")(),
 
                                     // It's important that this plugin is last otherwise we end
                                     // up with broken CSS.
@@ -431,7 +434,7 @@ module.exports = (env, argv) => {
             }),
 
             new HtmlWebpackInjectPreload({
-                files: [{ match: /.*Inter.*\.woff2?$/ }],
+                files: [{ match: /.*Inter.*\.woff2$/ }],
             }),
 
             ...additionalPlugins,

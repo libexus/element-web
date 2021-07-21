@@ -7,6 +7,11 @@ to `Settings->Labs`. This list is non-exhaustive and subject to change, chat in
 **Be warned! Labs features are not finalised, they may be fragile, they may change, they may be
 dropped. Ask in the room if you are unclear about any details here.**
 
+## Submit Abuse Report to Moderators [MSC3215](https://github.com/matrix-org/matrix-doc/pull/3215) support (`feature_report_to_moderators`)
+
+A new version of the "Report" dialog that lets users send abuse reports directly to room moderators,
+if the room supports it.
+
 ## Matrix Spaces [MSC1772](https://github.com/matrix-org/matrix-doc/pull/1772) support (`feature_spaces`)
 
 Enables showing, using, creating, and managing spaces. Create Spaces from the all new Space Panel (to left of Room List).
@@ -18,10 +23,6 @@ Still in heavy development.
 ## Render LaTeX maths in messages (`feature_latex_maths`)
 
 Enables rendering of LaTeX maths in messages using [KaTeX](https://katex.org/). LaTeX between single dollar-signs is interpreted as inline maths and double dollar-signs as display maths (i.e. centred on its own line).
-
-## New spinner design (`feature_new_spinner`)
-
-Replaces the old spinner image with a new, svg-based one featuring a sleeker design.
 
 ## Message pinning (`feature_pinning`)
 
